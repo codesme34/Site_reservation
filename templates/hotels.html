@@ -5,16 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name = "description" content = "Site de voyage et reservation en ligne">
   <title>Airlines reservation</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="/static/css/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
 </head>
+
 <body>
 
   <div class="sticky-wrapper">
     <header>
       <!-- Logo à gauche -->
       <div class="logo">
-        <img src="assets/images/logo_avion.png" alt="Logo">
+        <img src="static/assets/images/logo_avion.png" alt="Logo">
       </div>
 
       <!-- Milieu : Icône WhatsApp + textes -->
@@ -74,7 +76,7 @@
         <i class="fa-solid fa-file"></i>
         <span>PAGES</span>
       </a>
-      <a href="#contact">
+      <a href="/contact">
         <i class="fa-solid fa-envelope"></i>
         <span>CONTACT</span>
       </a>
@@ -92,21 +94,25 @@
 
 
   <section>
-      <div class="image-accueil">
-        <img src="assets/images/main2.webp" alt="Un couple regardant le coucher de soleil">
+
+    {% for hotel in hotels %}
+      <div class="hotel-card">
+        <img src="{{ hotel.photos[0] }}" alt="{{ hotel.nom }}" class="hotel-image">
+        <h3>{{ hotel.nom }}</h3>
+        <p>{{ hotel.adresse }}</p>
+        <p>{{ hotel.ville}}</p>
+        <p>{{ hotel.cp }}</p>
+        <p>{{ hotel.pays }}</p>
+        <p>{{ hotel.telephone }}</p>
+        <p>{{ hotel.descriptions }}</p>
+        <p>{{ hotel.avis }}</p>
+        <p>Prix : {{ hotel.tarifs }} €</p>
       </div>
-      <div class="search-form">
-        <div class="'search-section">
-          <input type="text">
+    {% endfor %}
 
-        </div>
-
-      </div>
-    </div>
-
-
-
+    
   </section>
 
+  <script src="static/js/script.js"></script>
 </body>
 </html>
