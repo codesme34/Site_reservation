@@ -66,17 +66,17 @@
 // console.log(afficherNombre())
 
 
-let course = ['pain','lait','oeufs'];
+// let course = ['pain','lait','oeufs'];
 
-course.push('Fromage')
-console.log(course)
-course.unshift('Beurre')
-console.log(course)
-course.splice(2,1)
-console.log(course)
-course[2] = 'yaourt'
+// course.push('Fromage')
+// console.log(course)
+// course.unshift('Beurre')
+// console.log(course)
+// course.splice(2,1)
+// console.log(course)
+// course[2] = 'yaourt'
 
-console.log(course)
+// console.log(course)
 
 // console.log(course+',fromage');
 

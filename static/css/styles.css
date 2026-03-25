@@ -237,7 +237,6 @@ header {
 .image-accueil {
   width: 100%;
 }
-
 .image-accueil img {
   width: 100%;
   height: auto;
@@ -248,7 +247,7 @@ header {
 /* SECTION HOTELS - SYSTÈME AUTO-RESPONSIVE */
 /* ──────────────────────────────────────────────── */
 
-section {
+.hotels-grid{
   display: grid;
   /* 
      Le "magic code" : 
@@ -326,12 +325,34 @@ section {
   border-top: 1px solid #f1f1f1;
 }
 
+.reserve-button {
+  display: block;
+  width: calc(100% - 30px);
+  margin: 0 auto 15px;
+  padding: 10px 0;
+  background-color: #21f301;
+  text-align: center;
+  border-radius: 999px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+.reserve-button:hover {
+  background-color: #c9901e;
+}
+
+.reserve-button a {
+    color: rgb(0, 0, 0); /* Change 'white' par la couleur de ton choix (ex: #ffffff) */
+    text-decoration: none; /* Enlève le soulignement du lien */
+    display: inline-block; /* Permet au lien de prendre de la place */
+    width: 100%; /* Le lien remplit tout le bouton pour cliquer partout */
+}
+
 /* ──────────────────────────────────────────────── */
 /* RESPONSIVE TABLETTE (Sous 820px - comme ton Nav) */
 /* ──────────────────────────────────────────────── */
 
 @media (max-width: 820px) {
-  section {
+  .hotels-grid {
     grid-template-columns: repeat(auto-fill, minmax(45%, 1fr)); /* 2 colonnes propres */
     padding: 20px 3%;
     gap: 15px;
@@ -347,7 +368,7 @@ section {
 /* ──────────────────────────────────────────────── */
 
 @media (max-width: 540px) {
-  section {
+  .hotels-grid {
     grid-template-columns: 1fr; /* 1 seule colonne qui prend toute la largeur */
     padding: 15px 10px;
   }
@@ -362,5 +383,176 @@ section {
 
   .hotel-card h3 {
     font-size: 1.1rem;
+  }
+}
+
+/* ── Wrapper global côte à côte ── */
+.reservation-page-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  padding: 40px 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: #f8f9fa;
+}
+
+/* ── Carte hôtel : taille fixe à gauche ── */
+.hotels-grid.single {
+  flex: 0 0 380px;       /* largeur fixe, ne rétrécit pas */
+  padding: 0;
+  background: transparent;
+}
+
+/* ── Formulaire : occupe le reste à droite ── */
+.customers-info {
+  flex: 1;               /* prend tout l'espace restant */
+  background: #fff;
+  border-radius: 16px;
+  padding: 36px 32px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.10);
+  border: 1px solid #eef2f7;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.customers-info h1 {
+  font-size: 1.45rem;
+  color: #012b47;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.customers-info h1::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: #01abf3;
+  border-radius: 99px;
+  margin-top: 8px;
+  margin-bottom: 22px;
+}
+
+.customers-info form div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+
+.customers-info form label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #555;
+}
+
+.customers-info form input[type="date"],
+.customers-info form input[type="number"],
+.customers-info form input[type="text"],
+.customers-info form input[type="tel"],
+.customers-info form input[type="email"] {
+  height: 42px;
+  border: 1.5px solid #e5eaf0;
+  border-radius: 8px;
+  padding: 0 14px;
+  font-size: 0.9rem;
+  color: #222;
+  background: #f8fafc;
+  outline: none;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.customers-info form input:focus {
+  border-color: #01abf3;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(1,171,243,0.10);
+}
+
+.customers-info form input::placeholder {
+  color: #bcc5ce;
+  font-size: 0.85rem;
+}
+
+.customers-info form button[type="submit"] {
+  width: 100%;
+  height: 48px;
+  margin-top: 8px;
+  background: linear-gradient(135deg, #01abf3, #0170aa);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 18px rgba(1,112,170,0.28);
+}
+
+.customers-info form button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(1,112,170,0.38);
+}
+
+/* ── Responsive tablette ── */
+@media (max-width: 820px) {
+  .reservation-page-wrapper {
+    flex-direction: column;
+    padding: 20px 3%;
+  }
+  .hotels-grid.single {
+    flex: none;
+    width: 100%;
+  }
+}
+
+/* ── Responsive mobile ── */
+@media (max-width: 540px) {
+  .reservation-page-wrapper {
+    padding: 10px;
+    gap: 16px;
+  }
+  .customers-info {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+}
+
+/* ── FIX : wrapper côte à côte ── */
+.reservation-page-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  padding: 40px 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: #f8f9fa;
+}
+
+/* ── Neutralise les styles grid sur la carte unique ── */
+.reservation-page-wrapper .hotels-grid {
+  display: block;        /* écrase le grid */
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  flex: 0 0 360px;       /* largeur fixe à gauche */
+  max-width: 360px;
+}
+
+/* ── Formulaire prend tout l'espace restant ── */
+.reservation-page-wrapper .customers-info {
+  flex: 1;
+  margin: 0;             /* annule le margin: auto précédent */
+  width: auto;
+}
+
+@media (max-width: 820px) {
+  .reservation-page-wrapper {
+    flex-direction: column;
+  }
+  .reservation-page-wrapper .hotels-grid {
+    flex: none;
+    max-width: 100%;
+    width: 100%;
   }
 }

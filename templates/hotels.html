@@ -52,9 +52,9 @@
         <i class="fa-solid fa-plane-departure"></i>
         <span>VOL + HÔTEL</span>
       </a>
-      <a href="#location-vacances">
+      <a href="/hotels">
         <i class="fa-solid fa-house-user"></i>
-        <span>LOCATION VACANCES</span>
+        <span>HÔTELS</span>
       </a>
       <a href="#croisieres">
         <i class="fa-solid fa-ship"></i>
@@ -93,7 +93,7 @@
 
 
 
-  <section>
+  <section class=" hotels-grid">
 
     {% for hotel in hotels %}
       <div class="hotel-card">
@@ -107,6 +107,9 @@
         <p>{{ hotel.descriptions }}</p>
         <p>{{ hotel.avis }}</p>
         <p>Prix : {{ hotel.tarifs }} €</p>
+        <button class="reserve-button"><a href="/reservation/{{ hotel.slug }}">Réserver</a></button>
+
+        
       </div>
     {% endfor %}
 

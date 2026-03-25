@@ -3,7 +3,7 @@ from flask import render_template
 from flask import request
 import json
 from pymongo import MongoClient
-
+from flask import session
 
 
 
@@ -16,6 +16,7 @@ db = client["Site_reservation"]
 
 formu_contact = db["formulaire_contacts"]
 db_hotel = db["Hotels"]
+reservations = db["reservation_client"]
 
 
 @app.route("/",methods= ['GET'])
@@ -26,15 +27,13 @@ def hello_world():
 
 
 
-
-
-#Route contact
+#------------------Route contact----------------
 
 
 @app.route("/contact",methods= ['GET','POST'])
 def contact():
     if request.method == "POST":
-     
+        
         nom = request.form["nom"]
         prenom = request.form['prenom']
         tel = request.form['tel']
@@ -53,35 +52,72 @@ def contact():
 
 
 
-#Route contact
+#------------------Route contact----------------
 
 
 
 
-
-#Route Hotels
+#---------------Route Hotels----------
 
 @app.route("/hotels",methods= ['GET'])
 
 def hotels():
 
     
-
     list_hotels = list(db_hotel.find())
 
     return render_template('hotels.html', hotels=list_hotels)
 
-#Route Hotels
+#---------------Route Hotels-----------
 
 
 
 
+#---------------Reservation-----------
+
+@app.route("/reservation/<slug>",methods= ['GET'])
+def hotel_cibling(slug):
+
+    list_hotels = (db_hotel.find_one({"slug":slug}))
 
 
-@app.route("/paiements_process1")
-def pp1():
-    return render_template('pp1.html')
+    return render_template('reservation.html',hotel=list_hotels)
 
-@app.route("/paiements_process2")
-def pp2():
-    return render_template('pp2.html')
+
+@app.route("/customers", methods=["POST"])
+def customers():
+    
+
+    depart_start = request.form['depart']
+    depart_end = request.form['sortie']
+    nombre_de_majeur = request.form['adultes']
+    nombre_de_mineur = request.form['enfants']
+
+    nom = request.form['nom']
+    prenom = request.form['prenom']
+    adresse = request.form['adresse']
+    ville = request.form['ville']
+    code_postal = request.form['cp']
+    tel = request.form['tel']
+    mail = request.form['mail']
+
+    name_hotel = request.form['hotel_name']
+    adresse_hotel = request.form['hotel_adresse']
+    ville_hotel = request.form['hotel_ville']
+    cp_hotel = request.form['hotel_cp']
+    tel_hotel = request.form['hotel_tel']
+    pays_hotel = request.form['hotel_pays']
+
+    reservation = {'Date arrivé':depart_start,'Date de depart' :depart_end,"Nombre adulte": int(nombre_de_majeur),"Nombre enfants":int(nombre_de_mineur),
+                   'Nom': nom,"Prenom":prenom,'Adresse':adresse,"Ville":ville,"Cp":code_postal,"Tel": tel, "Mail": mail,'Hotel reserve' : name_hotel,"Adresse_H":adresse_hotel,"Ville_H":ville_hotel,"Cp_H":cp_hotel,"Telephone_H": tel_hotel,"Pays_H":pays_hotel}
+    
+    reservations.insert_one(reservation)
+
+    return render_template('paiement.html')
+
+
+#---------------Reservation-----------
+
+@app.route("/paiements_process")
+def paiement():
+    return render_template('paiement.html')
